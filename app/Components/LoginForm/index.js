@@ -22,7 +22,6 @@ const LoginForm = () => {
   const { login, loading } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
-  console.log("loginform");
   const {
     register,
     handleSubmit,

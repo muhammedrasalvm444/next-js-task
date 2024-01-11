@@ -2,6 +2,7 @@
 // "use client";
 import { createContext, useContext, useState } from "react";
 import { login as apiLogin } from "../api/api";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -20,15 +21,18 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("token", token);
       setToken(token);
       setLoading(false);
+      toast.success("Login successfull");
     } catch (error) {
       setLoading(false);
       console.error("Login failed:", error);
+      toast.error("Login failed");
     }
   };
 
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
+    toast.success("Logout siccessfull");
   };
 
   return (

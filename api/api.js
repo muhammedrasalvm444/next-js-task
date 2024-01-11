@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://interview.enfono.com/api_bcc/api"; // Replace with your API base URL
+const BASE_URL = "https://interview.enfono.com/api_bcc/api";
 
 const api = axios.create({
   baseURL: BASE_URL,
