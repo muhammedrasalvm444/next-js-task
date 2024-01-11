@@ -23,7 +23,6 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      toast.error("Login failed");
     }
   };
 

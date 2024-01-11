@@ -1,9 +1,17 @@
 "use client";
 
+import { getBanners } from "@/api/api";
+import { useAuth } from "@/context/authContext";
 import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
 
 const Hero = () => {
+  // const { token } = useAuth();
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+  // if (oken) {
+  const BannersList = getBanners(token);
+
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "firstName", headerName: "First Name", width: 130 },
