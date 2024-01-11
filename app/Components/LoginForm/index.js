@@ -74,7 +74,7 @@ const LoginForm = () => {
     //   </Button>
     // </form>
     <div className="flex items-center justify-center h-screen">
-      <div className="w-full max-w-md p-8 bg-blue-100 border border-blue-500 rounded-md">
+      <div className="w-full max-w-md p-8 bg-blue-100 border rounded-md bg-gradient-to-r from-blue-500 to-blue-200">
         <h1 className="text-3xl font-medium text-center ">Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller

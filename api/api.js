@@ -1,15 +1,18 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const BASE_URL = "https://interview.enfono.com/api_bcc/api";
+// const BASE_URL = "https://interview.enfono.com/api_bcc/api";
 
-const api = axios.create({
-  baseURL: BASE_URL,
-});
+// const api = axios.create({
+//   baseURL: BASE_URL,
+// });
 
 export const login = async (username, password) => {
   try {
-    const response = await api.post("/auth/login", { username, password });
+    const response = await axios.post(
+      "https://interview.enfono.com/api_bcc/api/auth/login",
+      { username, password }
+    );
     return response.data.token;
   } catch (error) {
     toast?.error(error.response?.data?.message);
@@ -19,9 +22,12 @@ export const login = async (username, password) => {
 
 export const getBanners = async (token) => {
   try {
-    const response = await api.get("/admin_panel/banners", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get(
+      "https://interview.enfono.com/api_bcc/api/admin_panel/banners",
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     return response.data;
   } catch (error) {
     console.log("error", error);

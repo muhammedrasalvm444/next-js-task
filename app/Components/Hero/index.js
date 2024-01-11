@@ -6,11 +6,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
 
 const Hero = () => {
-  // const { token } = useAuth();
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
-  // if (oken) {
-  const BannersList = getBanners(token);
+  const { token } = useAuth();
+  if (token) {
+    const BannersList = getBanners(token);
+  }
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
@@ -26,7 +25,7 @@ const Hero = () => {
     { id: 2, firstName: "mmu", lastName: "Doe", age: 36 },
   ];
   return (
-    <div className="items-center justify-center h-screen px-4 py-8 my-24 text-white rounded-lg shadow-md sm:flex md:my-8 bg-gradient-to-r from-blue-500 to-blue-200">
+    <div className="items-center justify-center h-full px-4 py-8 my-24 text-white rounded-lg shadow-md sm:flex md:my-8 bg-gradient-to-r from-blue-500 to-blue-200">
       <div className="container px-4 mx-auto my-20">
         <p className="mb-4 text-lg">
           Showcase your data in an engaging and interactive way.
