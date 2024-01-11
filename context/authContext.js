@@ -21,10 +21,8 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("token", token);
       setToken(token);
       setLoading(false);
-      toast.success("Login successfull");
     } catch (error) {
       setLoading(false);
-      console.error("Login failed:", error);
       toast.error("Login failed");
     }
   };

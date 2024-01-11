@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  // Check if the user is authenticated (replace with your logic)
-  const isAuthenticated = req.cookies.get("authToken") || false; // Example using a cookie
+  const isAuthenticated = req.cookies.get("authToken") || false;
 
   if (!isAuthenticated) {
     const url = req.nextUrl.clone();
-    url.pathname = "/login"; // Set the redirect path
+    url.pathname = "/login";
     return NextResponse.redirect(url);
   }
 
