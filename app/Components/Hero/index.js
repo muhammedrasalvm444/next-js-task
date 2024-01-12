@@ -13,8 +13,6 @@ const Hero = () => {
   const [bannerLoading, setBannerLoading] = useState(false);
 
   const { token } = useAuth();
-  console.log("rowa", rows);
-  console.log("dddddddd", token);
 
   useEffect(() => {
     const fetchData = async () => {

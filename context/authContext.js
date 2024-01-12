@@ -10,6 +10,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const isBrowser = typeof window !== "undefined";
   const [loading, setLoading] = useState(false);
+  const [loginCompleted, setLoginCompleted] = useState(false);
   const router = useRouter();
 
   const [token, setToken] = useState(
@@ -22,6 +23,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("token", getToeken?.data?.token?.access);
       setToken(getToeken?.data?.token?.access);
       setLoading(false);
+      setLoginCompleted(true);
     } catch (error) {
       setLoading(false);
     }
@@ -30,12 +32,15 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
-    toast.success("Logout successfull");
+    toast.success("Logged out successfull");
     router.push("/login");
+    setLoginCompleted(false);
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{ token, login, logout, loading, loginCompleted }}
+    >
       {children}
     </AuthContext.Provider>
   );

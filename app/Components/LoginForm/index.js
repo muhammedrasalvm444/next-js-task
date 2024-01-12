@@ -7,7 +7,7 @@ import { useCallback, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useAuth } from "@/context/authContext";
-
+import { useRouter } from "next/navigation";
 const schema = yup
   .object({
     username: yup.string().required("Username is required"),
@@ -18,7 +18,11 @@ const schema = yup
   })
   .required();
 const LoginForm = () => {
-  const { login, loading } = useAuth();
+  const { login, loading, loginCompleted } = useAuth();
+  const router = useRouter();
+  if (loginCompleted) {
+    router?.push("/");
+  }
 
   const [showPassword, setShowPassword] = useState(false);
   const {
@@ -35,7 +39,6 @@ const LoginForm = () => {
     },
     [login]
   );
-  console.log("errors", errors);
 
   return (
     <div className="flex items-center justify-center h-screen">
