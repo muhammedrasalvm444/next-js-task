@@ -7,11 +7,18 @@ import { toast } from "react-toastify";
 //   baseURL: BASE_URL,
 // });
 
-export const login = async (username, password) => {
+export const login = async (data) => {
+  console.log("api", data);
   try {
     const response = await axios.post(
       "https://interview.enfono.com/api_bcc/api/auth/login",
-      { username, password }
+      { username: data?.username, password: data?.password }
+      // {
+      //   maxRedirects: 5,
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // }
     );
     return response.data.token;
   } catch (error) {

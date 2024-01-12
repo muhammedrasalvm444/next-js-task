@@ -2,46 +2,120 @@
 
 import { getBanners } from "@/api/api";
 import { useAuth } from "@/context/authContext";
+import { Avatar, Box, CircularProgress } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import React from "react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { boolean } from "yup";
 
 const Hero = () => {
-  const { token } = useAuth();
-  if (token) {
-    const BannersList = getBanners(token);
-  }
+  const [rows, setRows] = useState([]);
+  console.log("row", rows);
+  const loading = false;
+
+  // const { token } = useAuth();
+  // const token =
+  // if (token) {
+  //   const BannersList = getBanners(token);
+  //   setRows(BannersList);
+  // }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2NzYzNjYyLCJpYXQiOjE3MDUwMzU2NjIsImp0aSI6ImNlYmI2ZTZmNDQ1ZTQwOTk4NmQzM2E0NmQxOTg0Y2Y3IiwidXNlcl9pZCI6ImFkbWluIiwibmFtZSI6bnVsbH0.9CoSlrwsMA52tBHY6rfTD-EQD22MRrJCIK58eBZvPcw"; // Replace with your actual token retrieval logic
+        if (token) {
+          const BannersList = await getBanners(token);
+          setRows(BannersList?.data?.results);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "firstName", headerName: "First Name", width: 130 },
-    { field: "lastName", headerName: "Last Name", width: 130 },
-    { field: "age", headerName: "Age", type: "number", width: 90 },
+    {
+      field: "image",
+      headerName: "Image",
+      width: 130,
+      renderCell: (params) => <Avatar src={params?.row?.image} />,
+      sortable: false,
+      filterable: false,
+    },
+    { field: "title", headerName: "Title", width: 250 },
+    {
+      field: "is_active",
+      headerName: "Active",
+      width: 100,
+      type: boolean,
+      editable: true,
+    },
+    {
+      field: "created_at",
+      headerName: "Created At",
+      width: 130,
+      renderCell: (params) => (
+        <span>{moment(params?.row?.created_at).format("YYYY-MM-DD")}</span>
+      ),
+    },
   ];
 
-  const rows = [
-    { id: 1, firstName: "John", lastName: "Doe", age: 25 },
-    { id: 2, firstName: "Jane", lastName: "Doe", age: 30 },
-    { id: 2, firstName: "Appu", lastName: "Kv", age: 30 },
-    { id: 2, firstName: "mmu", lastName: "Doe", age: 36 },
-  ];
   return (
-    <div className="items-center justify-center h-full px-4 py-8 my-24 text-white rounded-lg shadow-md sm:flex md:my-8 bg-gradient-to-r from-blue-500 to-blue-200">
-      <div className="container px-4 mx-auto my-20">
-        <p className="mb-4 text-lg">
-          Showcase your data in an engaging and interactive way.
-        </p>
-        <div className="overflow-x-auto">
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={5}
-            checkboxSelection
-            disableSelectionOnClick
-            className="bg-white rounded-lg shadow-md hover:bg-gray-100"
-          />
+    <>
+      {loading ? (
+        <div className="flex items-center justify-center h-full h-screen">
+          <Box
+            sx={{
+              display: "flex",
+              height: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%", // Ensure the loader takes the full width
+            }}
+          >
+            <CircularProgress />
+          </Box>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className="flex items-center justify-center h-full h-screen px-4 py-8 text-white rounded-lg shadow-md sm:flex md:my-8 bg-gradient-to-r from-blue-500 to-blue-200">
+          <div className="container w-full px-4 mx-auto my-20 sm:w-auto">
+            <p className="mb-4 text-lg">
+              Showcase your data in an engaging and interactive way.
+            </p>
+            <div className="overflow-x-auto">
+              {loading ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    height: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <CircularProgress />
+                </Box>
+              ) : (
+                <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  pageSize={5}
+                  checkboxSelection
+                  disableSelectionOnClick
+                  className="bg-white rounded-lg shadow-md hover:bg-gray-100"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

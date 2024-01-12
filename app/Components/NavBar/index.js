@@ -12,7 +12,7 @@ const NavBar = () => {
             Test
           </span>
         </Link>
-        <ul className="items-center hidden space-x-4 md:flex">
+        <ul className="items-center space-x-4 md:flex">
           {!token ? (
             <li>
               <Link href="/login">
@@ -27,7 +27,7 @@ const NavBar = () => {
             </span>
           )}
         </ul>
-        <button className="p-2 text-white bg-blue-600 rounded-md md:hidden hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white">
+        {/* <button className="p-2 text-white bg-blue-600 rounded-md md:hidden hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white">
           <svg
             className="w-6 h-6"
             fill="currentColor"
@@ -40,7 +40,7 @@ const NavBar = () => {
               clipRule="evenodd"
             ></path>
           </svg>
-        </button>
+        </button> */}
       </nav>
       {token && (
         <>

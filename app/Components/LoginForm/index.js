@@ -30,8 +30,10 @@ const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) =>
+  const onSubmit = (data) => {
+    console.log("data", data);
     login({ username: data?.username, password: data?.password });
+  };
 
   return (
     // <form onSubmit={handleSubmit(onSubmit)}>
