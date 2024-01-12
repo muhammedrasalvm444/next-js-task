@@ -23,7 +23,7 @@ const NavBar = () => {
             </li>
           ) : (
             <span className="px-3 py-2 text-white transition-all duration-300 rounded-md hover:bg-blue-400 hover:text-white">
-              Welcome
+              Welcome Admin
             </span>
           )}
         </ul>

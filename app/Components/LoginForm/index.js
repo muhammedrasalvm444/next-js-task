@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useAuth } from "@/context/authContext";
@@ -29,9 +29,13 @@ const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {
-    login({ username: data?.username, password: data?.password });
-  };
+  const onSubmit = useCallback(
+    (data) => {
+      login({ username: data?.username, password: data?.password });
+    },
+    [login]
+  );
+  console.log("errors", errors);
 
   return (
     <div className="flex items-center justify-center h-screen">

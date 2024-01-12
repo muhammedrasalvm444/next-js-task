@@ -3,23 +3,24 @@
 import { createContext, useContext, useState } from "react";
 import { login as apiLogin } from "../api/api";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const isBrowser = typeof window !== "undefined";
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const [token, setToken] = useState(
     isBrowser ? localStorage.getItem("token") || null : null
   );
-
   const login = async (data) => {
     try {
       setLoading(true);
-      const token = await apiLogin(data);
-      localStorage.setItem("token", token);
-      setToken(token);
+      const getToeken = await apiLogin(data);
+      localStorage.setItem("token", getToeken?.data?.token?.access);
+      setToken(getToeken?.data?.token?.access);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -30,6 +31,7 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setToken(null);
     toast.success("Logout successfull");
+    router.push("/login");
   };
 
   return (

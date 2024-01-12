@@ -12,18 +12,13 @@ const Hero = () => {
   const [rows, setRows] = useState([]);
   const [bannerLoading, setBannerLoading] = useState(false);
 
-  // const { token } = useAuth();
-  // const token =
-  // if (token) {
-  //   const BannersList = getBanners(token);
-  //   setRows(BannersList);
-  // }
+  const { token } = useAuth();
+  console.log("rowa", rows);
+  console.log("dddddddd", token);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2NzYzNjYyLCJpYXQiOjE3MDUwMzU2NjIsImp0aSI6ImNlYmI2ZTZmNDQ1ZTQwOTk4NmQzM2E0NmQxOTg0Y2Y3IiwidXNlcl9pZCI6ImFkbWluIiwibmFtZSI6bnVsbH0.9CoSlrwsMA52tBHY6rfTD-EQD22MRrJCIK58eBZvPcw"; // Replace with your actual token retrieval logic
         if (token) {
           const BannersList = await getBanners({ token, setBannerLoading });
           setRows(BannersList?.data?.results);
@@ -68,7 +63,7 @@ const Hero = () => {
 
   return (
     <>
-      {bannerLoading ? (
+      {rows.length === 0 ? (
         <div className="flex items-center justify-center h-full h-screen">
           <Box
             sx={{
@@ -76,28 +71,46 @@ const Hero = () => {
               height: "100%",
               justifyContent: "center",
               alignItems: "center",
-              width: "100%", // Ensure the loader takes the full width
+              width: "100%",
             }}
           >
-            <CircularProgress />
+            No Result.please Login your account
           </Box>
         </div>
       ) : (
-        <div className="flex items-center justify-center h-full h-screen px-4 py-8 text-white rounded-lg shadow-md sm:flex md:my-8 bg-gradient-to-r from-blue-500 to-blue-200">
-          <div className="container w-full px-4 mx-auto my-20 sm:w-auto">
-            <p className="mb-4 text-lg">Admin Panel</p>
-            <div className="overflow-x-auto">
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                pageSize={5}
-                checkboxSelection
-                disableSelectionOnClick
-                className="bg-white rounded-lg shadow-md hover:bg-gray-100"
-              />
+        <>
+          {bannerLoading ? (
+            <div className="flex items-center justify-center h-full h-screen">
+              <Box
+                sx={{
+                  display: "flex",
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%", // Ensure the loader takes the full width
+                }}
+              >
+                <CircularProgress />
+              </Box>
             </div>
-          </div>
-        </div>
+          ) : (
+            <div className="flex items-center justify-center h-full h-screen px-4 py-8 text-white rounded-lg shadow-md sm:flex md:my-8 bg-gradient-to-r from-blue-500 to-blue-200">
+              <div className="container w-full px-4 mx-auto my-20 sm:w-auto">
+                <p className="mb-4 text-lg">Admin Panel</p>
+                <div className="overflow-x-auto">
+                  <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    pageSize={5}
+                    checkboxSelection
+                    disableSelectionOnClick
+                    className="bg-white rounded-lg shadow-md hover:bg-gray-100"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </>
   );
