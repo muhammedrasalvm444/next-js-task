@@ -10,8 +10,7 @@ import { boolean } from "yup";
 
 const Hero = () => {
   const [rows, setRows] = useState([]);
-  console.log("row", rows);
-  const loading = false;
+  const [bannerLoading, setBannerLoading] = useState(false);
 
   // const { token } = useAuth();
   // const token =
@@ -26,7 +25,7 @@ const Hero = () => {
         const token =
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2NzYzNjYyLCJpYXQiOjE3MDUwMzU2NjIsImp0aSI6ImNlYmI2ZTZmNDQ1ZTQwOTk4NmQzM2E0NmQxOTg0Y2Y3IiwidXNlcl9pZCI6ImFkbWluIiwibmFtZSI6bnVsbH0.9CoSlrwsMA52tBHY6rfTD-EQD22MRrJCIK58eBZvPcw"; // Replace with your actual token retrieval logic
         if (token) {
-          const BannersList = await getBanners(token);
+          const BannersList = await getBanners({ token, setBannerLoading });
           setRows(BannersList?.data?.results);
         }
       } catch (error) {
@@ -54,7 +53,7 @@ const Hero = () => {
       field: "is_active",
       headerName: "Active",
       width: 100,
-      type: boolean,
+      type: "boolean",
       editable: true,
     },
     {
@@ -69,7 +68,7 @@ const Hero = () => {
 
   return (
     <>
-      {loading ? (
+      {bannerLoading ? (
         <div className="flex items-center justify-center h-full h-screen">
           <Box
             sx={{
@@ -86,31 +85,16 @@ const Hero = () => {
       ) : (
         <div className="flex items-center justify-center h-full h-screen px-4 py-8 text-white rounded-lg shadow-md sm:flex md:my-8 bg-gradient-to-r from-blue-500 to-blue-200">
           <div className="container w-full px-4 mx-auto my-20 sm:w-auto">
-            <p className="mb-4 text-lg">
-              Showcase your data in an engaging and interactive way.
-            </p>
+            <p className="mb-4 text-lg">Admin Panel</p>
             <div className="overflow-x-auto">
-              {loading ? (
-                <Box
-                  sx={{
-                    display: "flex",
-                    height: "100%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <CircularProgress />
-                </Box>
-              ) : (
-                <DataGrid
-                  rows={rows}
-                  columns={columns}
-                  pageSize={5}
-                  checkboxSelection
-                  disableSelectionOnClick
-                  className="bg-white rounded-lg shadow-md hover:bg-gray-100"
-                />
-              )}
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={5}
+                checkboxSelection
+                disableSelectionOnClick
+                className="bg-white rounded-lg shadow-md hover:bg-gray-100"
+              />
             </div>
           </div>
         </div>

@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 // });
 
 export const login = async (data) => {
-  console.log("api", data);
   try {
     const response = await axios.post(
       "https://interview.enfono.com/api_bcc/api/auth/login",
@@ -27,7 +26,9 @@ export const login = async (data) => {
   }
 };
 
-export const getBanners = async (token) => {
+export const getBanners = async ({ token, setBannerLoading }) => {
+  console.log("toke", token, setBannerLoading);
+  setBannerLoading(true);
   try {
     const response = await axios.get(
       "https://interview.enfono.com/api_bcc/api/admin_panel/banners",
@@ -35,9 +36,11 @@ export const getBanners = async (token) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    setBannerLoading(false);
     return response.data;
   } catch (error) {
-    console.log("error", error);
+    setBannerLoading(false);
+
     toast?.error(error.response?.data?.message);
     throw error.response?.data || error.message;
   }

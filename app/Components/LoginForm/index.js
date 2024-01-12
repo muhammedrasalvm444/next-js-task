@@ -6,7 +6,6 @@ import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import SaveIcon from "@mui/icons-material/Save";
 import { useAuth } from "@/context/authContext";
 
 const schema = yup
@@ -31,50 +30,10 @@ const LoginForm = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    console.log("data", data);
     login({ username: data?.username, password: data?.password });
   };
 
   return (
-    // <form onSubmit={handleSubmit(onSubmit)}>
-    //   <Controller
-    //     name="firstName"
-    //     control={control}
-    //     defaultValue=""
-    //     render={({ field }) => (
-    //       <TextField
-    //         {...field}
-    //         label="First Name"
-    //         variant="outlined"
-    //         margin="normal"
-    //         fullWidth
-    //         error={!!errors.firstName}
-    //         helperText={errors.firstName?.message}
-    //       />
-    //     )}
-    //   />
-
-    //   <Controller
-    //     name="lastName"
-    //     control={control}
-    //     defaultValue=""
-    //     render={({ field }) => (
-    //       <TextField
-    //         {...field}
-    //         label="Last Name"
-    //         variant="outlined"
-    //         margin="normal"
-    //         fullWidth
-    //         error={!!errors.lastName}
-    //         helperText={errors.lastName?.message}
-    //       />
-    //     )}
-    //   />
-
-    //   <Button type="submit" variant="contained" color="secondary">
-    //     Submit
-    //   </Button>
-    // </form>
     <div className="flex items-center justify-center h-screen">
       <div className="w-full max-w-md p-8 bg-blue-100 border rounded-md bg-gradient-to-r from-blue-500 to-blue-200">
         <h1 className="text-3xl font-medium text-center ">Login</h1>
@@ -96,23 +55,6 @@ const LoginForm = () => {
             )}
           />
 
-          {/* <Controller
-            name="password"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                type="password" // Specify the input type as password
-                label="Password"
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                error={!!errors.password}
-                helperText={errors.password?.message}
-              />
-            )}
-          /> */}
           <Controller
             name="password"
             control={control}
@@ -146,9 +88,10 @@ const LoginForm = () => {
 
           <LoadingButton
             type="submit"
+            fullWidth
             loadingPosition="start"
             variant="contained"
-            className="flex items-center mt-4 bg-black justify-self-center hover:bg-blue-300"
+            className="flex items-center mt-4 bg-black justify-self-center hover:bg-blue-900"
           >
             {loading ? "Loading" : "Submit"}
           </LoadingButton>

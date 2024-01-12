@@ -15,7 +15,6 @@ const AuthProvider = ({ children }) => {
   );
 
   const login = async (data) => {
-    console.log("log", data);
     try {
       setLoading(true);
       const token = await apiLogin(data);
