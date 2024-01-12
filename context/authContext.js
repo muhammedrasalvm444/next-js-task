@@ -1,5 +1,3 @@
-// Remove the "use client"; statement
-// "use client";
 import { createContext, useContext, useState } from "react";
 import { login as apiLogin } from "../api/api";
 import { toast } from "react-toastify";

@@ -6,7 +6,6 @@ import { Avatar, Box, CircularProgress } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { boolean } from "yup";
 
 const Hero = () => {
   const [rows, setRows] = useState([]);
@@ -85,7 +84,7 @@ const Hero = () => {
                   height: "100%",
                   justifyContent: "center",
                   alignItems: "center",
-                  width: "100%", // Ensure the loader takes the full width
+                  width: "100%",
                 }}
               >
                 <CircularProgress />
